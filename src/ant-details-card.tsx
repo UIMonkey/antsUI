@@ -3,9 +3,8 @@ import { IAnt } from './ant';
 
 export const AntDetailsCard = (props: Partial<IAnt>) => (
     <div className="container">
-        <span className="name-label">Name: </span>
         <span className="name-value">{props.name}</span>
-        <span className="location-label">LAT/LONG: </span>
+        <span className="location-label">Lat/Long: </span>
         <span className="location-value">{props.location?.latitude},{props.location?.latitude}</span>
         <span className="heading-label">Heading: </span>
         <span className="heading-value">{props.heading}</span>

@@ -1,52 +1,39 @@
 .container {
-    /* background-color: red; */
+    background-color: white;
+    height: 200px;
+    width: 320px;
+    border-radius: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     display: grid;
-    grid-template-columns: 120px 200px auto 100px 100px;
-    grid-template-rows: 30px 30px 30px 30px 30px;
-}
-
-.name-label {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    text-align: right;
+    grid-template-columns: 30% auto;
+    grid-template-rows: 30px 30px 30px 30px 30px 30px 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .name-value {
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
+    text-align: center;
 }
 
 .health-label {
-    grid-column-start: 4;
-    grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
     text-align: right;
 }
 
 .health-value {
-    grid-column-start: 5;
-    grid-column-end: 6;
-    grid-row-start: 1;
-    grid-row-end: 2;
-}
-.location-label {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    text-align: right;
-}
-.location-value {
     grid-column-start: 2;
     grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
 }
+
 .heading-label {
     grid-column-start: 1;
     grid-column-end: 2;
@@ -74,15 +61,29 @@
     grid-row-end: 5;
 }
 .colony-label {
-    grid-column-start: 4;
-    grid-column-end: 5;
+    grid-column-start: 1;
+    grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
     text-align: right;
 }
 .colony-value {
-    grid-column-start: 5;
-    grid-column-end: 6;
+    grid-column-start: 2;
+    grid-column-end: 3;
     grid-row-start: 2;
     grid-row-end: 3;
+}
+
+.location-label {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 6;
+    grid-row-end: 7;
+    text-align: right;
+}
+.location-value {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 6;
+    grid-row-end: 7;
 }
