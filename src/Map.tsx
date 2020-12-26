@@ -7,17 +7,21 @@ import 'leaflet/dist/leaflet.js';
 interface IMapProps {
     map: L.Map;
     ants: IAnt[];
-    selectAnt: (thing: any) => void;
+    selectAnt: (e: L.LeafletMouseEvent) => void;
 }
 
 export const pointerIcon = new L.Icon({
-    iconUrl: "./favicon.ico",
-    iconRetinaUrl: "./favicon.ico",
+    iconUrl: `${process.env.PUBLIC_URL}/ant1.png`,
+    iconRetinaUrl: "./ant1.png",
     iconAnchor: [5, 55],
     popupAnchor: [10, -44],
-    iconSize: [64, 64],
+    iconSize: [48, 48],
     shadowSize: [68, 95],
     shadowAnchor: [20, 92]
+});
+
+export const defaultIcon = new L.Icon.Default({
+    imagePath: `${process.env.PUBLIC_URL}/`
 });
 
 class Map extends React.Component<IMapProps> {
@@ -41,7 +45,7 @@ class Map extends React.Component<IMapProps> {
         });
 
         this.props.ants.forEach((ant: IAnt) => {
-            L.marker([ant.location.latitude, ant.location.longitude], { title: ant.name })
+            L.marker([ant.location.latitude, ant.location.longitude], { title: ant.name, icon: pointerIcon })
                 .addTo(this.map)
                 .on('click', this.props.selectAnt);
         });
