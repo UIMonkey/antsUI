@@ -1,36 +1,54 @@
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 import Map from './Map';
-import { AntDetailsCard, IAntDetails } from './ant-details-card';
+import AntDetailsCard from './ant-details-card';
+import { testAnts } from './ant-data';
+import React from 'react';
+import L from 'leaflet';
+import { IAnt } from './ant';
 
-const testAnts: IAntDetails[] = [
-  {
-    name: 'Dave',
-    latitude: 51.32476
-  },
-  {
-    name: 'Kim',
-    latitude: 63.8795
+interface AppState {
+  selectedAnt: IAnt;
+  ants: IAnt[];
+}
+
+class App extends React.Component<{}, AppState> {
+
+  constructor(props: AppState) {
+    super(props);
+    this.state = {
+      selectedAnt: testAnts[0],
+      ants: testAnts
+    }
+    this.selectAnt = this.selectAnt.bind(this);
   }
-];
 
-function App() {
-  return (
-    <div className="App">
+  selectAnt(mouseEvent: L.LeafletMouseEvent) {
+    // Get the name of the ant that was selected
+    let selectedAntName = mouseEvent.target.options['title'];
+    // Find the ant within the store
+    let select = testAnts.find((ant: IAnt) => {
+      return ant.name === selectedAntName;
+    });
+    if (select) {
+      this.setState({selectedAnt: select});
+    }
+  }
+
+  render() {
+    return <div className="App">
       <header>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        />
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        ></script>
       </header>
       <h1>Ants...</h1>
-      <AntDetailsCard name={'Dave'} latitude={51.38764} />
-      <Map />
+      <AntDetailsCard name={this.state.selectedAnt.name}
+        location={this.state.selectedAnt.location}
+        heading={this.state.selectedAnt.heading}
+        speed={this.state.selectedAnt.speed}
+        colony={this.state.selectedAnt.colony}
+        health={this.state.selectedAnt.health} />
+      <Map ants={testAnts} selectAnt={this.selectAnt} />
     </div>
-  );
+  }
 }
 
 export default App;
-
-{/* <link rel="stylesheet" type="text/css" href="../node_modules/leaflet/dist/leaflet.css" />
-<script src="../node_modules/leaflet/dist/leaflet.js"></script> */}

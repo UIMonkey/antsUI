@@ -1,19 +1,32 @@
 import React from 'react';
 import L from 'leaflet';
+import { IAnt } from './ant';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.js';
 
 interface IMapProps {
-    marker: L.Marker;
     map: L.Map;
+    ants: IAnt[];
+    selectAnt: (thing: any) => void;
 }
+
+export const pointerIcon = new L.Icon({
+    iconUrl: "./favicon.ico",
+    iconRetinaUrl: "./favicon.ico",
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [64, 64],
+    shadowSize: [68, 95],
+    shadowAnchor: [20, 92]
+});
 
 class Map extends React.Component<IMapProps> {
     private map!: L.Map;
     private layer = new L.LayerGroup();
 
     static defaultProps: Partial<IMapProps> = {
-        marker: L.marker([50.5, 30.5]),
-      }
-    
+        ants: []
+    }
 
     componentDidMount() {
         // create map
@@ -26,8 +39,12 @@ class Map extends React.Component<IMapProps> {
                 }),
             ]
         });
-        // this.layer = L.layerGroup().addTo(this.map);
-        L.marker([50.0819, 8.6338], {title: 'Test'}).addTo(this.map);
+
+        this.props.ants.forEach((ant: IAnt) => {
+            L.marker([ant.location.latitude, ant.location.longitude], { title: ant.name })
+                .addTo(this.map)
+                .on('click', this.props.selectAnt);
+        });
         // this.updateMarkers(this.props.markersData);
     }
 
