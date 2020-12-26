@@ -35,7 +35,7 @@ class Map extends React.Component<IMapProps> {
     componentDidMount() {
         // create map
         this.map = L.map('mapid', {
-            center: [50.0819, 8.6338],
+            center: [51.700963, 3.854044],
             zoom: 6,
             layers: [
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

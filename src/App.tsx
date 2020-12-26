@@ -1,5 +1,4 @@
 import './App.css';
-import 'leaflet/dist/leaflet.css';
 import Map from './Map';
 import AntDetailsCard from './ant-details-card';
 import { testAnts } from './ant-data';
@@ -31,22 +30,22 @@ class App extends React.Component<{}, AppState> {
       return ant.name === selectedAntName;
     });
     if (select) {
-      this.setState({selectedAnt: select});
+      this.setState({ selectedAnt: select });
     }
   }
 
   render() {
     return <div className="App">
-      <header>
-      </header>
-      <h1>Ants...</h1>
-      <AntDetailsCard name={this.state.selectedAnt.name}
-        location={this.state.selectedAnt.location}
-        heading={this.state.selectedAnt.heading}
-        speed={this.state.selectedAnt.speed}
-        colony={this.state.selectedAnt.colony}
-        health={this.state.selectedAnt.health} />
       <Map ants={testAnts} selectAnt={this.selectAnt} />
+      <div className="map-overlay">
+        <h1>Ants...</h1>
+        <AntDetailsCard name={this.state.selectedAnt.name}
+          location={this.state.selectedAnt.location}
+          heading={this.state.selectedAnt.heading}
+          speed={this.state.selectedAnt.speed}
+          colony={this.state.selectedAnt.colony}
+          health={this.state.selectedAnt.health} />
+      </div>
     </div>
   }
 }

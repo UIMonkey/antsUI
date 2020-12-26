@@ -1,7 +1,7 @@
 .container {
     /* background-color: red; */
     display: grid;
-    grid-template-columns: 100px 100px auto 100px 100px;
+    grid-template-columns: 120px 200px auto 100px 100px;
     grid-template-rows: 30px 30px 30px 30px 30px;
 }
 
@@ -10,6 +10,7 @@
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 2;
+    text-align: right;
 }
 
 .name-value {
@@ -24,6 +25,7 @@
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
+    text-align: right;
 }
 
 .health-value {
@@ -37,6 +39,7 @@
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
+    text-align: right;
 }
 .location-value {
     grid-column-start: 2;
@@ -49,6 +52,7 @@
     grid-column-end: 2;
     grid-row-start: 3;
     grid-row-end: 4;
+    text-align: right;
 }
 .heading-value {
     grid-column-start: 2;
@@ -61,6 +65,7 @@
     grid-column-end: 2;
     grid-row-start: 4;
     grid-row-end: 5;
+    text-align: right;
 }
 .speed-value {
     grid-column-start: 2;
@@ -73,6 +78,7 @@
     grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
+    text-align: right;
 }
 .colony-value {
     grid-column-start: 5;
