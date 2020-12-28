@@ -5,7 +5,7 @@ export const AntDetailsCard = (props: Partial<IAnt>) => (
     <div className="container">
         <span className="name-value">{props.name}</span>
         <span className="location-label">Lat/Long: </span>
-        <span className="location-value">{props.location?.latitude},{props.location?.latitude}</span>
+        <span className="location-value">{props.location?.latitude.toFixed(3)},     {props.location?.longitude.toFixed(3)}</span>
         <span className="heading-label">Heading: </span>
         <span className="heading-value">{props.heading}</span>
         <span className="speed-label">Speed: </span>
