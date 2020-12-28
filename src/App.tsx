@@ -3,6 +3,7 @@ import Map from './Map';
 import AntDetailsCard from './ant-details-card';
 import React from 'react';
 import { Ant, Colony, IAnt } from './ant';
+import { SearchBox } from './search';
 
 interface AppState {
   selectedAnt: IAnt;
@@ -53,12 +54,8 @@ class App extends React.Component<{}, AppState> {
       <Map ants={this.state.ants} selectAnt={this.selectAnt} />
       <div className="map-overlay">
         <h1>Ants...</h1>
-        <AntDetailsCard name={this.state.selectedAnt.name}
-          location={this.state.selectedAnt.location}
-          heading={this.state.selectedAnt.heading}
-          speed={this.state.selectedAnt.speed}
-          colony={this.state.selectedAnt.colony}
-          health={this.state.selectedAnt.health} />
+        <SearchBox></SearchBox>
+        <AntDetailsCard {...this.state.selectedAnt} />
       </div>
     </div>
   }

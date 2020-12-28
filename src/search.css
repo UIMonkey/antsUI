@@ -1,0 +1,11 @@
+.search-box {
+    pointer-events: auto;
+}
+
+.input-box {
+    border-radius: 5px;
+    border: transparent;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: 24px;
+    padding: 6px;
+}
