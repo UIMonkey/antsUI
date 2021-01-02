@@ -1,6 +1,6 @@
 import './App.css';
 import Map from './Map';
-import AntDetailsCard from './ant-details-card';
+import AntDetailsCard from './components/ant-details-card';
 import React, { useState } from 'react';
 import { Ant, Colony, IAnt } from './ant';
 import { SearchBox } from './search';
@@ -18,8 +18,6 @@ const App = () => {
     pollInterval: 500,
     fetchPolicy: "network-only"
   });
-  // setAnts(data?.ants);
-  // console.log(loading, data);
 
   // Handle a select ant event
   const selectAnt = (mouseEvent: L.LeafletMouseEvent) => {
@@ -38,6 +36,9 @@ const App = () => {
 
   if (loading) { return <h1>Loading...</h1> }
   if (error) { return <h1>{errorMessage}</h1>}
+
+  // console.log(data?.ants[0].health)
+  // console.log(selectedAnt.health)
 
   return <div className="App">
     <Map ants={data?.ants} selectAnt={selectAnt} />

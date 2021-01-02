@@ -1,5 +1,5 @@
 import './ant-details-card.css';
-import { IAnt } from './ant';
+import { IAnt } from '../ant';
 
 export const AntDetailsCard = (props: Partial<IAnt>) => (
     <div className="container">
