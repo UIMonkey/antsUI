@@ -5,45 +5,28 @@ import React, { useState } from 'react';
 import { Ant, Colony, IAnt } from './ant';
 import { SearchBox } from './search';
 import { AntList } from './ant-list';
-import { gql, useQuery } from '@apollo/client'
-
-const antsQuery = gql`
-query {
-    ants {
-      name
-      colony
-      }
- }
-`
-
-function generateAnts(numberOfAnts: number): IAnt[] {
-  let antArray = Array.from({ length: numberOfAnts }, (value, key): Ant => {
-    // Bounding box Lat: 50 - 51, Lng: 3-5 
-    let lng = (Math.random() * 10) + 3;
-    let lat = (Math.random() * 6) + 48;
-    let colonyEnum = Object.keys(Colony);
-    let colonyIndex = Math.floor(Math.random() * colonyEnum.length);
-    let newAnt = new Ant(`Ant${key}`, 100, 0, Colony.Green);
-    newAnt.location.longitude = lng;
-    newAnt.location.latitude = lat;
-    return newAnt;
-  });
-  return antArray;
-}
+import { useQuery } from '@apollo/client'
+import { GET_ANTS } from './graphql/schema';
 
 const App = () => {
 
-  const [ants, setAnts] = useState(generateAnts(100));
-  const [selectedAnt, setSelectedAnt] = useState(ants[0]);
-  const { loading, data } = useQuery(antsQuery);
-  console.log(data);
+  // const [ants, setAnts] = useState([]);
+  const [selectedAnt, setSelectedAnt] = useState(new Ant());
+
+  // Get the ant data from the server
+  const { loading, error, data } = useQuery(GET_ANTS, {
+    pollInterval: 500,
+    fetchPolicy: "network-only"
+  });
+  // setAnts(data?.ants);
+  // console.log(loading, data);
 
   // Handle a select ant event
   const selectAnt = (mouseEvent: L.LeafletMouseEvent) => {
     // Get the name of the ant that was selected
     let selectedAntName = mouseEvent.target.options['title'];
     // Find the ant within the store
-    let select = ants.find((ant: IAnt) => {
+    let select = data?.ants.find((ant: IAnt) => {
       return ant.name === selectedAntName;
     });
     if (select) {
@@ -51,12 +34,17 @@ const App = () => {
     }
   }
 
+  const errorMessage = `Error! ${error?.message}`;
+
+  if (loading) { return <h1>Loading...</h1> }
+  if (error) { return <h1>{errorMessage}</h1>}
+
   return <div className="App">
-    <Map ants={ants} selectAnt={selectAnt} />
+    <Map ants={data?.ants} selectAnt={selectAnt} />
     <div className="map-overlay">
       <h1>Ants...</h1>
       <SearchBox></SearchBox>
-      <AntList {...ants}></AntList>
+      <AntList {...data?.ants}></AntList>
       <AntDetailsCard {...selectedAnt} />
     </div>
   </div>

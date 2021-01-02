@@ -32,35 +32,39 @@ class Map extends React.Component<IMapProps> {
         ants: []
     }
 
-    componentDidMount() {
-        // create map
-        this.map = L.map('mapid', {
+    createMap() {
+        return L.map('mapid', {
             center: [51.700963, 3.854044],
-            zoom: 6,
+            zoom: 7,
             layers: [
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }),
             ]
         });
+    }
 
-        this.props.ants.forEach((ant: IAnt) => {
+    componentDidMount() {
+        this.map = this.createMap();
+
+        this.props.ants?.forEach((ant: IAnt) => {
             L.marker([ant.location.latitude, ant.location.longitude], { title: ant.name, icon: pointerIcon })
                 .addTo(this.map)
                 .on('click', this.props.selectAnt);
         });
-        // this.updateMarkers(this.props.markersData);
     }
 
-    // updateMarkers(markersData: L.Marker[]) {
-    //     this.layer.clearLayers();
-    //     markersData.forEach((marker: L.Marker) => {
-    //         L.marker(
-    //         marker.getLatLng(),
-    //             {title: marker.title; }
-    //       ).addTo(this.layer);
-    //     });
-    //   }
+    componentDidUpdate() {
+        this.map.eachLayer((layer: L.Layer) => {
+            const marker = layer as L.Marker;
+            if (marker.options) {
+                const ant = this.props.ants.find((ant: IAnt) => ant.name === marker.options.title)
+                if (ant) {
+                    marker.setLatLng([ant.location.latitude, ant.location.longitude]);
+                }
+            }
+        })
+    }
 
     render() {
         return <div id="mapid"></div>
